@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>  
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="#" />  
+
+        <title>Estado de Cuenta Corriente</title>      
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">    
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="{% static '/dist/css/adminlte.min.css' %}">
+    </head>
+
+    <body class style="height: auto;">
+        <div class="card">
+            <div class="card-header">
+                <p style="font-size:13pt;color:#E72571";><b>ESTADO DE CUENTA CORRIENTE AL {{ fecha_actual }}</b></p>
+                <p style="font-size:13pt;color:#E72571";><b>FECHA: {{ fecha_hora }}</b></p>     
+                <div>                    
+                    <div class="text-center">                        
+                        <h4 style="font-weight: bold; color:#E77D25";><u>ESTADO DE CUENTA CORRIENTE DEL CLIENTE</u></h4>
+                    </div>
+                    <br>
+                    <br> 
+                    <div style="display: flex;flex-direction: row; color:#25A6E7";>                        
+                        <div style="height: 100%; background-color: transparent; width: 60%;" class="text-left">                            
+                            <p style="font-family: sans-serif; margin-left: 50%; font-weight: bold;">SEÑORES: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.Cliente }} - {{ seguimiento_ccorriente.0.NombreCliente }}</p>
+                        </div>    
+                        <div style="height: 100%; background-color: transparent; width: 15%; color:#25A6E7" class="text-left">                            
+                            <p style="font-family: sans-serif, Helvetica; font-weight: bold;">R.U.C. : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.RUC }} </p>
+                        </div>                       
+                    </div>
+                    <div style="display: flex;flex-direction: row;">         
+                        <div style="height: 100%; background-color: transparent; width: 60%; color:#25A6E7" class="text-left"> 
+                            <p style="font-family: sans-serif, Helvetica; margin-left: 50%; font-weight: bold;">CORREO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.Correo }}</p>
+                        </div>    
+                        <div style="height: 100%; background-color: transparent; width: 10%; color:#25A6E7" class="text-left">   
+                            <p style="font-family: sans-serif, Helvetica; font-weight: bold;">TELEFONO : &nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.Telefono }} </p>
+                        </div>               
+                    </div>
+                    <div style="display: flex;flex-direction: row;">         
+                        <div style="height: 100%; background-color: transparent; width: 60%; color:#25A6E7" class="text-left"> 
+                            <p style="font-family: sans-serif, Helvetica; margin-left: 50%; font-weight: bold;">DIRECCION: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.Direccion }}</p>
+                        </div>    
+                        <div style="height: 100%; background-color: transparent; width: 10%; color:#25A6E7" class="text-left">   
+                            <p style="font-family: sans-serif, Helvetica; font-weight: bold; margin-left: 1%;">VENDEDOR: &nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.Vendedor }} </p>
+                        </div>               
+                    </div><div style="display: flex;flex-direction: row;">         
+                        <div style="height: 100%; background-color: transparent; width: 60%; color:#25A6E7" class="text-left"> 
+                            <p style="font-family: sans-serif, Helvetica; margin-left: 56.4%; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.ln02 }}</p>
+                        </div>    
+                        <div style="height: 100%; background-color: transparent; width: 30%; color:#25A6E7" class="text-left">   
+                            <p style="font-family: sans-serif, Helvetica; font-weight: bold; margin-left: 14%;">&nbsp;&nbsp;&nbsp;&nbsp;{{ seguimiento_ccorriente.0.NombreVendedor }} </p>
+                        </div>               
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: row;">         
+                    <div style="height: 100%; background-color: transparent; width: 60%; color:#25A6E7" class="text-left"> 
+                        <p style="font-family: sans-serif, Helvetica; margin-left: 50%; font-weight: bold;">REPRES. LEGAL: {{ seguimiento_ccorriente.0.RepresentanteLegal }}</p>
+                    </div>    
+                    <div style="height: 100%; background-color: transparent; width: 20%; color:#25A6E7" class="text-left">   
+                        <p style="font-family: sans-serif, Helvetica; font-weight: bold; color:#E72571;font-size:12pt;"><b>SALDO TOTAL: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ total_saldo|floatformat:2 }} </b></p>
+                    </div>               
+                </div>
+                <div style="display: flex;flex-direction: row;">         
+                    <div style="height: 100%; background-color: transparent; width: 60%; color:#25A6E7" class="text-left"> 
+                        
+                    </div>    
+                    <div style="height: 100%; background-color: transparent; width: 20%; color:#25A6E7" class="text-left">   
+                        <p style="font-family: sans-serif, Helvetica; font-weight: bold; color:#E72571;font-size:12pt;"><b>LÍMITE DE CRÉDITO: &nbsp;{{ ccorriente_detalle.0.Credito|floatformat:2 }} </b></p>
+                    </div>               
+                </div>
+                    <!------------------------------------------------LINEA SEPARADO DE LA CABECERA Y DETALLE------------------------------------------------>
+                </div>  
+            </div>
+            <div class="card-body">
+                <div id="descargar_wrapper" class="dataTables_wrapper dt-bootstrap4"> 
+                    <div class = "row">                        
+                        <div class="col-sm-12 col-md-6">
+                            <!--<button type="button" class="btn btn-warning fa-regular fa-envelope" id="enviarCorreo" style="margin-right: -7px; color: white;"></button>    -->                            
+                            <button type="button" class="btn btn-warning" id="enviarCorreo" title="Enviar correo">
+                                <i class="fas fa-envelope" style="color: white; margin-right: 0px;"></i>
+                            </button>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_filter">
+                                
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <a href="#" class="redireccionar" style="display: inline-block;"><h5>Ir a relacion de clientes</h5></a>
+                        </div>           
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="descargar" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="descargar_info">                                  
+                                <thead> 
+                                    <tr class="text-center">                                        
+                                        <th>Moneda</th> 
+                                        <th>Banco</th> 
+                                        <th>Documento</th>                                                                           
+                                        <th>Orden</th>                                        
+                                        <th>F. Emisión</th>                                        
+                                        <th>F. Vencimiento</th>                                        
+                                        <th>Código Único</th> 
+                                        <th>Saldo</th>                                                                             
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>                             
+                                <tbody class="text-center"> 
+                                    {% for consultar in ccorriente_detalle %}  
+                                        <tr class="odd">                                           
+                                            <td>{{ consultar.Moneda }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>  
+
+                                            {% if consultar.Banco == NULL %}
+                                                <td></td>
+                                            {% else %}
+                                                <td>{{ consultar.Banco }}</td>  
+                                            {% endif %}
+                                                                                        
+                                            <td>{{ consultar.Documento }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+                                            <td>{{ consultar.Orden }}&nbsp;&nbsp;</td>
+
+                                            <td>{{ consultar.FechaEmision|date:"d-m-Y" }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+                                            <td>{{ consultar.FechaVencimiento|date:"d-m-Y" }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>   
+                                            
+                                            {% if consultar.Cod_Unico == NULL %}
+                                                <td></td>
+                                            {% else %}
+                                                <td>{{ consultar.Cod_Unico }}</td>   
+                                            {% endif %}
+
+                                            <td>{{ consultar.Saldo|floatformat:2 }}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+                                            {% if consultar.Estado == NULL %}
+                                                <td></td>
+                                            {% else %}
+                                                <td>{{ consultar.Estado }}</td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}                                      
+                                </tbody> 
+                            </table>  
+                        </div>
+                    </div>                
+                </div> 
+            </div>
+            
+            <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script> 
+            <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+            <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+            <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+            <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>   
+            <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>   
+                        
+            
+            <div>
+                <script>
+                    $(function () {    
+                        $("#descargar").DataTable({                             
+                            "lengthChange": true,
+                            "searching": true,
+                            "ordering": true,
+                            "info": true, 
+                            "autoWidth": false,
+                            "responsive": true,  
+                            "header": true,
+                            language: {
+                                "lengthMenu": "Mostrar _MENU_ registros",
+                                "zeroRecords": "No se encontraron resultados",
+                                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                "sSearch": "Buscar:",
+                                "oPaginate": {
+                                    "sFirst": "Primero",
+                                    "sLast":"Último",
+                                    "sNext":"Siguiente",
+                                    "sPrevious": "Anterior"
+                                },
+                                "sProcessing":"Procesando...",
+                            },                                                                     
+                            "buttons": [{
+                                extend: 'excelHtml5',      
+                                text: '<i class="fas fa-file-excel"></i> ',                          
+                                titleAttr: 'Exportar a Excel',
+                                className: 'btn btn-success',
+                                sheetName: 'Cuenta Corriente',                                   
+                                exportOptions: { 
+                                    columns: [ 0,1,2,3,4,5,6,7,8 ] 
+                                },
+                                title: 'Estado de Cuenta Corriente - {{ seguimiento_ccorriente.0.NombreCliente }}',
+                            },                          
+                            {              
+                                extend: 'pdfHtml5',
+                                text: '<i class="fas fa-file-pdf"></i> ',
+                                titleAttr: 'Exportar a PDF',
+                                className: 'btn btn-danger',    
+                                orientation: 'landscape',
+                                pageSize: 'A5',                                
+                                exportOptions: { 
+                                columns: [ 0,1,2,3,4,5,6,7,8 ] 
+                                },
+                                title: 'Estado de Cuenta Corriente - {{ seguimiento_ccorriente.0.NombreCliente }}',
+                            }, 
+                            {              
+                                extend: 'print',
+                                text: '<i class="fa fa-print"></i> ',
+                                titleAttr: 'Imprimir',
+                                className: 'btn btn-info',
+                                exportOptions: { 
+                                columns: [ 0,1,2,3,4,5,6,7,8 ] 
+                                },
+                                title: 'Estado de Cuenta Corriente - {{ seguimiento_ccorriente.0.NombreCliente }}',    
+                            }
+                        ],                       
+                        }).buttons().container().appendTo('#descargar_wrapper .col-md-6:eq(0)');       
+                           
+                        
+                        $(document).on('click', '.redireccionar', function() {                            
+                            var urlRedireccion = "/relacion_clientes_ccorriente/";
+                            window.location.href = urlRedireccion;
+                        });
+                                                                                               
+                        });
+                </script>    
+            </div>
+        </div>
+    </body>
+</html>

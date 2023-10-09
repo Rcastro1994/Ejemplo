@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>  
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="#" />  
+
+        <title>Consultar Seguimiento Pedido</title>      
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">    
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">        
+               
+    </head>
+    <body class style="height: auto;">
+        <div class="card">
+            <div class="card-header">
+                <div style="display: flex;flex-direction: row; color:#25A6E7";> 
+                    <div style="height: 100%; background-color: transparent; width: 60%;" class="text-left">
+                        <h5><p style="color:#566573";><b>Consultar Seguimiento Pedido</b></p></h5>     
+                    </div>
+                    <div style="height: 100%; background-color: transparent; width: 40%; color:#566573; font-size:15pt" class="text-right">                            
+                        <label for="miComboBox">Pendiente&nbsp;</label>
+                        <select id="miComboBox">
+                            <option value="ninguno">Ninguno</option>
+                            <option value="factura">Factura</option>
+                            <option value="guia">Guía</option>
+                        </select>
+                    </div> 
+                </div>                         
+                <h5><p style="color:#566573";><b>Partner: {{ codigoPartner }} - {{ seguimiento.0.NombrePartner }}</b></p></h5>
+            </div>
+                        
+            
+            <div class="card-body">
+                <div id="descargar_wrapper" class="dataTables_wrapper dt-bootstrap4"> 
+                    <div class = "row">
+                        <div class="col-sm-12 col-md-6">
+                                                         
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_filter">
+                            
+                            </div>
+                        </div>
+                        <div class="text-right">                            
+                            <a href="#" class="redireccionar" style="display: inline-block;"><h5>Ir a relacion de clientes</h5></a><br>                            
+                        </div>          
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">                            
+                            <table id="descargar" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="descargar_info">  
+                                <thead> 
+                                    <tr class="text-center">
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:2%">Oferta</th>                                                                          
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:7%">Fecha Oferta</th>                                        
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:7%">Orden de Venta</th>
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:8%">Fecha Orden</th>                                        
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:8%">Fecha Bloq.</th>                                        
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:8%">Fecha Desbloq.</th>                                        
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:8%">Factura</th>
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:4%"></th>                                        
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:8%">Guía</th>
+                                        <th class="sorting" tabindex="0" aria-controls="descargar" rowspan="1" colspan="1" style="width:4%"></th>
+                                    </tr>
+                                </thead>                             
+                                <tbody> 
+                                    {% for consultar in seguimiento %}                                                                     
+                                        <tr class="odd" data-estado="{% if consultar.Factura == '-' or consultar.FechaFactura|date:'Y' == '1753' %}SinFactura{% endif %}{% if consultar.Guia == '-' %}SinGuia{% endif %}">
+                                            <!-- OFERTA DE VENTA -->
+                                            <td class="dtr-control sorting_1" tabindex="0">{{ consultar.Oferta }}</td>
+                                            
+                                            <!-- FECHA Y HORA ORDEN -->
+                                            {% if consultar.FechaOferta|date:"Y" == "1753" %}
+                                                <td class="dtr-control sorting_1" tabindex="0"></td>
+                                            {% else %}
+                                                <td class="dtr-control sorting_1" tabindex="0" >{{ consultar.FechaOferta|date:"Y-m-d" }} <br> {{ consultar.HoraOferta }}</td>                                          
+                                            {% endif %}
+                                            
+                                            <!-- ORDEN DE VENTA -->
+                                            <td class="dtr-control sorting_1" tabindex="0">{{ consultar.OV_Numero }}</td>
+                                            
+                                            <!-- FECHA ORDEN -->
+                                            {% if consultar.FechaOrden|date:"Y" == "1753" %}
+                                                <td class="dtr-control sorting_1" tabindex="0"></td>
+                                            {% else %}
+                                                <td class="dtr-control sorting_1" tabindex="0">{{ consultar.FechaOrden|date:"Y-m-d" }} <br> {{ consultar.HoraOrden }}</td>                                           
+                                            {% endif %}
+                                            
+                                            <!-- FECHA BLOQUEADO -->
+                                            {% if consultar.FechaBloqueado|date:"Y" == "1753" %}
+                                                <td class="dtr-control sorting_1" tabindex="0"></td>
+                                            {% else %}
+                                                <td class="dtr-control sorting_1" tabindex="0">{{ consultar.FechaBloqueado|date:"Y-m-d" }} <br> {{ consultar.HoraBloqueado }}</td>
+                                            {% endif %}
+                                            
+                                            <!-- FECHA DESBLOQUEADO -->
+                                            {% if consultar.FechaDesbloqueado|date:"Y" == "1753" %}
+                                                <td class="dtr-control sorting_1" tabindex="0"></td>
+                                            {% else %}
+                                                <td class="dtr-control sorting_1" tabindex="0">{{ consultar.FechaDesbloqueado|date:"Y-m-d" }} <br> {{ consultar.HoraDesbloqueado }}</td>
+                                            {% endif %}
+                                            
+                                            <!-- FACTURA -->
+                                            {% if consultar.Factura == "-" or consultar.FechaFactura|date:"Y" == "1753" %}
+                                                <td class="dtr-control sorting_1" tabindex="0"></td>
+                                            {% else %}
+                                                <td class="dtr-control sorting_1" tabindex="0">{{ consultar.Factura }} <br> {{ consultar.FechaFactura|date:"Y-m-d" }} <br> {{ consultar.HoraFactura }}</td>
+                                            {% endif %}
+                                            
+                                            <!-- BOTON DESCARGAR FACTURA -->
+                                            {% if consultar.Factura == "-" %}
+                                                <td class="dtr-control sorting_1 text-center" tabindex="0"><i class="fa-solid fa-xmark"></i></td>                                                
+                                            {% else %}
+                                                <td class="dtr-control sorting_1 text-center" tabindex="0"><a onclick="window.open('http://www.grupovega.com/ServicioFactura/documentos/20107498088-{{ consultar.Factura }}.pdf', '_blank', 'location=yes,height=970,width=3520,scrollbars=yes,status=yes');"><i class="fa-regular fa-file-pdf btn"></i></a></td>
+                                            {% endif %}
+                                            
+                                            <!-- GUIA -->
+                                            {% if consultar.Guia == "-" or consultar.FechaGuia|date:"Y" == "1753"%}
+                                                <td class="dtr-control sorting_1" tabindex="0"></td>
+                                            {% else %}
+                                                <td class="dtr-control sorting_1" tabindex="0">{{ consultar.Guia }} <br> {{ consultar.FechaGuia|date:"Y-m-d" }} <br> {{ consultar.HoraGuia }}</td>
+                                            {% endif %}
+                                            
+                                            <!-- BOTON DESCARGAR GUIA -->
+                                            {% if consultar.Guia == "-" %}
+                                                <td class="dtr-control sorting_1 text-center" tabindex="0"><i class="fa-solid fa-xmark"></i></td>                                                                                               
+                                            {% else %}
+                                                <td class="dtr-control sorting_1 text-center" tabindex="0"><a onclick="window.open('http://www.grupovega.com/ServicioFactura/documentos/20107498088-{{ consultar.Guia }}.pdf', '_blank', 'location=yes,height=970,width=3520,scrollbars=yes,status=yes');"><i class="fa-regular fa-file-pdf btn"></i></a></td>                                                                                                
+                                            {% endif %} 
+                                        </tr>    
+                                    {% endfor %}                          
+                                </tbody> 
+                            </table>                    
+                        </div>
+                    </div>                
+                </div>        
+            </div>
+            
+            <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script> 
+            <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+            <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+            <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+            <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+            <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>   
+            <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>  
+                              
+            
+            <script>
+                $(document).ready(function () {
+                    var dataTable = $("#descargar").DataTable({                        
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true, 
+                        "autoWidth": false,
+                        "responsive": true,                         
+                        language: {
+                            "lengthMenu": "Mostrar _MENU_ registros",
+                                "zeroRecords": "No se encontraron resultados",
+                                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                "sSearch": "Buscar:",
+                                "oPaginate": {
+                                    "sFirst": "Primero",
+                                    "sLast":"Último",
+                                    "sNext":"Siguiente",
+                                    "sPrevious": "Anterior"
+                                },
+                                "sProcessing":"Procesando...",
+                        },
+                        "buttons": [ {              
+                                extend: 'excelHtml5',      
+                                text: '<i class="fas fa-file-excel"></i> ',                          
+                                titleAttr: 'Exportar a Excel',
+                                className: 'btn btn-success',    
+                                sheetName: 'Seguimiento Pedido', 
+                                exportOptions: { 
+                                columns: [ 0,1,2,3,4,5,6,8 ] 
+                                },
+                                title: 'Consultar Seguimiento Pedido - {{ seguimiento.0.NombrePartner }}',
+                            },                            
+                            {              
+                                extend: 'pdfHtml5',
+                                text: '<i class="fas fa-file-pdf"></i> ',
+                                titleAttr: 'Exportar a PDF',
+                                className: 'btn btn-danger',    
+                                orientation: 'landscape',
+                                pageSize: 'A5',                                
+                                exportOptions: { 
+                                columns: [ 0,1,2,3,4,5,6,8 ] 
+                                },
+                                title: 'Consultar Seguimiento Pedido - {{ seguimiento.0.NombrePartner }}',
+                            }, 
+                            {              
+                                extend: 'print',
+                                text: '<i class="fa fa-print"></i> ',
+                                titleAttr: 'Imprimir',
+                                className: 'btn btn-info',
+                                exportOptions: { 
+                                columns: [ 0,1,2,3,4,5,6,8 ] 
+                                },
+                                title: 'Consultar Seguimiento Pedido - {{ seguimiento.0.NombrePartner }}',                                    
+                            }
+                        ],
+                    });    
+                                        
+                     
+                    function aplicarFiltro() {
+                        var opcionSeleccionada = $("#miComboBox").val();
+                        
+                        // Eliminar todos los filtros personalizados
+                        $.fn.dataTable.ext.search = [];
+                        
+                        if (opcionSeleccionada === "factura") {
+                            // Configurar DataTables para que aplique un filtro personalizado para Factura
+                            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                                var estadoFila = $(dataTable.row(dataIndex).node()).data("estado");
+                                return estadoFila.includes("SinFactura");
+                            });
+                        } else if (opcionSeleccionada === "guia") {
+                            // Configurar DataTables para que aplique un filtro personalizado para Guía
+                            $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                                var estadoFila = $(dataTable.row(dataIndex).node()).data("estado");
+                                return estadoFila.includes("SinGuia");
+                            });
+                        }
+                        
+                        // Redibujar la tabla para aplicar el filtro                        
+                        dataTable.draw();
+                    }           
+                    
+                    // Aplicar el filtro inicialmente
+                    aplicarFiltro();
+
+                    // Configurar el evento change en el combobox para aplicar el filtro
+                    $("#miComboBox").on("change", aplicarFiltro);  
+                    
+                    //Botenes Excel, PDF, Print
+                    dataTable.buttons().container().appendTo('#descargar_wrapper .col-md-6:eq(0)');
+
+                    $(document).on('click', '.redireccionar', function () {
+                        var urlRedireccion = "/relacion_clientes/";
+                        window.location.href = urlRedireccion;
+                    });
+                });
+            </script>  
+        </div>
+    </body>
+</html>
